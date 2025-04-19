@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.cirodevs.onlineshop2025.Adapter.CategoryAdapter
 import com.cirodevs.onlineshop2025.ViewModel.MainViewModel
 import com.cirodevs.onlineshop2025.databinding.ActivityMainBinding
 
@@ -22,7 +24,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initBanner()
+        initCategory()
 
+    }
+
+    private fun initCategory() {
+        binding.progressBarCat.visibility = View.VISIBLE
+        viewModel.loadCategory().observeForever {
+            binding.recyclerViewCat.layoutManager =
+                LinearLayoutManager(
+                    this@MainActivity, LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            binding.recyclerViewCat.adapter= CategoryAdapter(it)
+            binding.progressBarCat.visibility = View.GONE
+
+        }
+            viewModel.loadCategory()
     }
 
     private fun initBanner() {
