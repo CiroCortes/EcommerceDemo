@@ -1,4 +1,4 @@
-package com.cirodevs.onlineshop2025
+package com.cirodevs.onlineshop2025.Activity
 
 import android.content.Intent
 import android.os.Bundle
