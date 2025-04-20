@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.cirodevs.onlineshop2025.Adapter.CategoryAdapter
+import com.cirodevs.onlineshop2025.Adapter.PopularAdapter
 import com.cirodevs.onlineshop2025.ViewModel.MainViewModel
 import com.cirodevs.onlineshop2025.databinding.ActivityMainBinding
 
@@ -25,7 +27,18 @@ class MainActivity : AppCompatActivity() {
 
         initBanner()
         initCategory()
+        initPopular()
 
+    }
+
+    private fun initPopular() {
+        binding.progressBarPopular.visibility = View.VISIBLE
+        viewModel.loadPopular().observeForever {
+            binding.recyclerViewPopular.layoutManager = GridLayoutManager(this,2)
+            binding.recyclerViewPopular.adapter = PopularAdapter(it)
+            binding.progressBarPopular.visibility = View.GONE
+        }
+        viewModel.loadPopular()
     }
 
     private fun initCategory() {
